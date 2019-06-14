@@ -1,0 +1,16 @@
+#Custom aliases for quick navigation
+
+alias loj='cd /mnt/f/OJs/lightoj'
+alias cf='cd /mnt/f/OJs/codeforces'
+alias uva='cd /mnt/f/OJs/Uva'
+alias oj='cd /mnt/f/OJs'
+alias dtop='cd /mnt/c/Users/Asus/Desktop'
+alias f='cd /mnt/f/'
+alias ..='cd ..'
+alias ...='cd ..; cd ..'
+alias ....='cd ..; cd ..; cd ..'
+alias bashrc='vim ~/.bashrc'
+alias loadbash='source ~/.bashrc'
+alias la='ls -la'
+alias pip='pip3'
+alias python='python3'
