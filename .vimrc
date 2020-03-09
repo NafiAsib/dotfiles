@@ -21,7 +21,7 @@ set encoding=utf-8
 syntax on
 
 " jellybeans is pretty kora, got the name from tahsin vai. Faced some green issues
-colorscheme jellybeans
+"" colorscheme jellybeans
 " mkdir -p ~/.vim/colors
 " cd ~/.vim/colors
 " curl -O https://raw.githubusercontent.com/nanotech/jellybeans.vim/master/colors/jellybeans.vim
@@ -35,11 +35,11 @@ colorscheme jellybeans
 map <Enter> o<ESC>
 map <S-Enter> O<ESC>
 inoremap jk <ESC>
-inoremap { {<CR>}<Esc>O<TAB>
+"" inoremap { {<CR>}<Esc>O<TAB>
 "" inoremap <C-s> <Esc>:w<CR>a
 "" nnoremap <C-s> :w<CR>
 "" nnoremap <C-c> :!g++ -o  a.out % -std=c++11<Enter>
 "" nnoremap <C-x> :!./a.out
 
 " auto open the template for CPP
-:autocmd BufNewFile *.cpp 0r ~/.vim/templates/snippet.cpp
+"" :autocmd BufNewFile *.cpp 0r ~/.vim/templates/snippet.cpp
