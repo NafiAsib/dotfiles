@@ -10,6 +10,9 @@ gotchas too*
 ### editor
 neovim 
 
+***tmux for multiple terminal sessions with multiple panes & windows. The perks
+are unlimited***
+
 ## For zsh
 install zsh <br/>
 install oh-my-zsh <br/>
