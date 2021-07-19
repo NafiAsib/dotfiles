@@ -43,9 +43,22 @@ set smartcase           " But make it case sensitive if an uppercase is entered
 " vnoremap(visual mode)
 " cnoremap(command mode)
 
+let mapleader="\<Space>"
+" Quick Save
+nmap <Leader>w :w<CR>
+nmap <Leader>q :q<CR>
+nmap <Leader>q1 :q!<CR>
+nmap <Leader>x :wq<CR>
+nmap <Leader>n :NERDTreeToggle<CR>
+nmap <Leader>f <Esc><Esc>:Files!<CR>
+nnoremap <leader>d "_d
+let g:user_emmet_leader_key=','
+
+
 map <Enter> o<ESC>
 map <S-Enter> O<ESC>
-inoremap jk <ESC>
+"" inoremap jk <ESC>
+" remaping esc with caps lock systemwide feels much better
 "" inoremap { {<CR>}<Esc>O<TAB>
 "" inoremap <C-s> <Esc>:w<CR>a
 "" nnoremap <C-s> :w<CR>
@@ -58,3 +71,24 @@ inoremap jk <ESC>
 // Insert Date
 :nnoremap <F5> "=strftime("%a %b %d, %Y")<CR>P
 :inoremap <F5> <C-R>=strftime("%a %b %d, %Y")<CR>
+
+"" nmap <C-w> :! ~/tw.sh<CR><CR>
+"" nnoremap <silent> <C-w> :<C-u>silent !~/tw.sh <C-r>=shellescape(expand('<cword>'), 1)<CR><CR><C-l> " This works good
+
+""function! ClearRegisters()
+""    let regs='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-="*+'
+""    let i=0
+""    while (i<strlen(regs))
+""        exec 'let @'.regs[i].'=""'
+""        let i=i+1
+""    endwhile
+""endfunction
+
+""command! ClearRegisters call ClearRegisters()
+
+""if &term =~ '256color'
+""  " disable Background Color Erase (BCE) so that color schemes
+""  " render properly when inside 256-color tmux and GNU screen.
+""  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
+""  set t_ut=
+""endif
