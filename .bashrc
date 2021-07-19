@@ -18,4 +18,3 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 function mkdircd () { mkdir -p "$@" && eval cd "\"\$$#\"";}
-export DISPLAY=localhost:0.0
