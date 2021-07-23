@@ -1,3 +1,9 @@
+" install vim plug if not available
+if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source ~/.config/nvim/init.vim
+endif
 set relativenumber
 set clipboard=unnamedplus
 set tabstop=4
@@ -14,10 +20,12 @@ call plug#begin(stdpath('config').'/plugged')
 "" Plug 'vimwiki/vimwiki'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'Yggdroot/indentLine'
 
 " Initialize plugin system
 call plug#end()
 
+let g:indentLine_char = '⦙'
 
 
 nmap <Leader>f <Esc><Esc>:Files!<CR>
@@ -37,3 +45,5 @@ nmap <Leader>f <Esc><Esc>:Files!<CR>
 " Insert Date
 :nnoremap <F5> "=strftime("%a %b %d, %Y")<CR>P
 :inoremap <F5> <C-R>=strftime("%a %b %d, %Y")<CR>
+
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
