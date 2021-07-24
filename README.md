@@ -14,9 +14,3 @@ neovim
 ***tmux for multiple terminal sessions with multiple panes & windows. The perks
 are unlimited***
 
-## For zsh
-install zsh <br/>
-install oh-my-zsh <br/>
-install powerlevel10k <br/>
-use Meslo Nerd Font <br/>
-p10k configure <br/>
