@@ -1,0 +1,8 @@
+[user]
+	name = NafiAsib
+	email = nafi.asib@gmail.com
+[color]
+	ui = true
+[core]
+	editor = nvim
+	excludesfile = ~/.gitignore
