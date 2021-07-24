@@ -4,6 +4,7 @@ if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source ~/.config/nvim/init.vim
 endif
+
 set relativenumber
 set clipboard=unnamedplus
 set tabstop=4
@@ -26,7 +27,10 @@ Plug 'Yggdroot/indentLine'
 call plug#end()
 
 let g:indentLine_char = '⦙'
-
+set incsearch           " search as characters are entered
+set hlsearch            " highlight matches
+set ignorecase          " Ignore case in searches by default
+set smartcase           " But make it case sensitive if an uppercase is entered
 
 nmap <Leader>f <Esc><Esc>:Files!<CR>
 
