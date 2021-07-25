@@ -2,10 +2,14 @@
 
 * WSL2 (Latest Ubuntu LTS)
 * Windows Terminal
-* VSCode (VSCode Setup)
+* VSCode (TODO: VSCode Setup)
+* [Chocolatey](https://chocolatey.org/install)
+* FiraCode font `choco install firacode`
+* Install ansible
+* Run ansible (▀̿Ĺ̯▀̿ ̿)
 
 ## WSL2 Specific packages
-* `sudo apt install powerline fonts-powerline`
+* `sudo apt install powerline fonts-powerline` - automated in ansible
 
 
 # Remapping keys in windows
