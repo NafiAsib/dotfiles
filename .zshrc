@@ -1,4 +1,4 @@
-setopt promptsubst # enable command substitution in prompt
+# setopt promptsubst # enable command substitution in prompt
 
 autoload -U colors && colors
 
@@ -58,5 +58,7 @@ abbrev-alias src="source ~/.zshrc"
 abbrev-alias ..="cd .."
 ## abbr - end
 
-source ~/.config/zsh/prompt.zsh-theme # custom prompt
+# source ~/.config/zsh/prompt.zsh-theme # custom prompt
 source ~/.config/zsh/git.zsh # from oh-my-zsh
+autoload -U promptinit; promptinit
+prompt spaceship
