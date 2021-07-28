@@ -51,14 +51,17 @@ expand-alias-and-accept-line() {
 zle -N accept-line expand-alias-and-accept-line
 
 
-abbrev-alias ll="ls -lah --color"
+abbrev-alias la="ls -lah --color"
+abbrev-alias ll="exa --long --header --icons -a --sort=type --group-directories-first --no-time --no-user"
 abbrev-alias gs="git status"
 abbrev-alias zshrc="nvim ~/.zshrc"
 abbrev-alias src="source ~/.zshrc"
 abbrev-alias ..="cd .."
+abbrev-alias cat="batcat"
 ## abbr - end
 
 # source ~/.config/zsh/prompt.zsh-theme # custom prompt
 source ~/.config/zsh/git.zsh # from oh-my-zsh
 autoload -U promptinit; promptinit
 prompt spaceship
+[[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh
