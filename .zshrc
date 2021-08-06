@@ -15,7 +15,7 @@ zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 zmodload zsh/complist
 # compinit
-compinit -d ~/.cache/zsh/zcompdump-$ZSH_VERSION
+compinit -d ~/.cache/zsh/.zcompdump
 _comp_options+=(globdots)		# Include hidden files.
 
 ## https://blog.sebastian-daschner.com/entries/zsh-aliases
