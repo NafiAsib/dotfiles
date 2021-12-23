@@ -59,10 +59,12 @@ bindkey -M isearch " " magic-space
 
 alias la="ls -lah --color"
 ialias ll="exa --long --header --icons -a --sort=type --group-directories-first --no-time --no-user"
+# ialias ll="exa --header --icons -a --sort=type --group-directories-first --no-time --no-user"
 alias gs="git status"
 alias zrc="nvim ~/.zshrc"
 alias src="source ~/.zshrc"
 alias ..="cd .."
+alias dev="cd ~/dev"
 ialias bat="batcat"
 
 ## fish like abbr
