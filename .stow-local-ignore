@@ -1,0 +1,14 @@
+.config
+.git
+.bash_aliases
+.bashrc
+.gitconfig
+.gitignore
+.stow-local-ignore
+.stowrc
+.tmux.conf.bkup
+.vimrc
+.zshrc.bkup.v02
+README.md
+profiles.json
+windoze.md
