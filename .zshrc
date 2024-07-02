@@ -1,133 +1,109 @@
-# setopt promptsubst # enable command substitution in prompt
+if [[ -f "/opt/homebrew/bin/brew" ]] then
+  # If you're using macOS, you'll want this enabled
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
 
-autoload -U colors && colors
+# Set directory to store zinit and plugins
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
-# History in cache directory:
-HISTSIZE=10000
-SAVEHIST=10000
-HISTFILE=~/.cache/zsh/history
+[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
+[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+source "${ZINIT_HOME}/zinit.zsh"
 
+# zinit plugins
+zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-completions
+zinit light zsh-users/zsh-autosuggestions
+zinit light Aloxaf/fzf-tab
 
-# auto tab completion
-autoload -U compinit && compinit -u
-zstyle ':completion:*' menu select
-# Auto complete with case insenstivity
-zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-zmodload zsh/complist
-# compinit
-compinit -d ~/.cache/zsh/.zcompdump
-_comp_options+=(globdots)		# Include hidden files.
+# Load autocompletions
+autoload -U compinit && compinit 
+zinit cdreplay -q
 
-## https://blog.sebastian-daschner.com/entries/zsh-aliases
-# blank aliases
-typeset -a baliases
-baliases=()
+# Aliases
+alias ls="ls --colors"
+alias ll="exa --long --header --icons --all --octal-permissions --sort=type"
+alias cn="code ~/src/notes-main/"
+alias lg="lazygit"
+alias cat="bat"
 
-balias() {
-  alias $@
-  args="$@"
-  args=${args%%\=*}
-  baliases+=(${args##* })
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('$HOME/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "$HOME/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "$HOME/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="$HOME/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+# Define a function to update iTerm2 window title
+update_window_title() {
+  printf "\e]1;%s\a" "$1"
+}
+# Hook the update_window_title function to the precmd function
+precmd() {
+  update_window_title "$1"
 }
 
-# ignored aliases
-typeset -a ialiases
-ialiases=()
+# bun completions
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
 
-ialias() {
-  alias $@
-  args="$@"
-  args=${args%%\=*}
-  ialiases+=(${args##* })
-}
+# Go
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
 
-# functionality
-expand-alias-space() {
-  [[ $LBUFFER =~ "\<(${(j:|:)baliases})\$" ]]; insertBlank=$?
-  if [[ ! $LBUFFER =~ "\<(${(j:|:)ialiases})\$" ]]; then
-    zle _expand_alias
-  fi
-  zle self-insert
-  if [[ "$insertBlank" = "0" ]]; then
-    zle backward-delete-char
-  fi
-}
-zle -N expand-alias-space
+# Console Ninja
+PATH=~/.console-ninja/.bin:$PATH
 
-bindkey " " expand-alias-space
-bindkey -M isearch " " magic-space
+# flutter
+export PATH="$PATH:$HOME/dev/flutter/bin"
+export PATH="$PATH":"$HOME/.pub-cache/bin"
 
-alias la="ls -lah --color"
-ialias ll="exa --long --header --icons -a --sort=type --group-directories-first --no-time --no-user"
-# ialias ll="exa --header --icons -a --sort=type --group-directories-first --no-time --no-user"
-alias gs="git status"
-alias zrc="nvim ~/.zshrc"
-alias src="source ~/.zshrc"
-alias ..="cd .."
-alias dev="cd ~/dev"
-ialias bat="batcat"
+# cargo
+. "$HOME/.cargo/env"
 
-## fish like abbr
-# declare a list of expandable aliases to fill up later
-#typeset -a ealiases
-#ealiases=()
-#
-## write a function for adding an alias to the list mentioned above
-#function abbrev-alias() {
-#    alias $1
-#    ealiases+=(${1%%\=*})
-#}
-#
-## expand any aliases in the current line buffer
-#function expand-ealias() {
-#    if [[ $LBUFFER =~ "\<(${(j:|:)ealiases})\$" ]]; then
-#        zle _expand_alias
-#        zle expand-word
-#    fi
-#    zle magic-space
-#}
-#zle -N expand-ealias
-#
-## Bind the space key to the expand-alias function above, so that space will expand any expandable aliases
-#bindkey ' '        expand-ealias
-#bindkey '^ '       magic-space     # control-space to bypass completion
-#bindkey -M isearch " "      magic-space     # normal space during searches
-#
-## A function for expanding any aliases before accepting the line as is and executing the entered command
-#expand-alias-and-accept-line() {
-#    expand-ealias
-#    zle .backward-delete-char
-#    zle .accept-line
-#}
-#zle -N accept-line expand-alias-and-accept-line
-#
-#abbrev-alias la="ls -lah --color"
-## abbrev-alias ll="exa --long --header --icons -a --sort=type --group-directories-first --no-time --no-user"
-#abbrev-alias gs="git status"
-#abbrev-alias zrc="nvim ~/.zshrc"
-#abbrev-alias src="source ~/.zshrc"
-#abbrev-alias ..="cd .."
-### abbr - end
-#
-## aliases
-#ialias bat="batcat"
-#ialias ls="exa --long --header --icons -a --sort=type --group-directories-first --no-time --no-user"
+export PATH=$PATH:~/.spoof-dpi/bin
 
-# My custom prompt
-# source ~/.config/zsh/prompt.zsh-theme # custom prompt
+# Nix
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+fi
+# End Nix
 
-# All scripts from oh-my-zsh goes here
-source ~/.config/zsh/git.zsh # from oh-my-zsh
+# Node version manager
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# zsh-autosuggestions
-source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# Spaceship prompt
-autoload -U promptinit; promptinit
-prompt spaceship
+# History
+HISTSIZE=5000
+HISTFILE=~/.zsh_history
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space # ignore commands if it starts with space (to hide sensitive commands beings saved)
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
 
-# node version manager
-[[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
-# zsh-syntax-highlighting
-source ~/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+eval "$(fzf --zsh)"
+eval "$(zoxide init --cmd cd zsh)"
+eval "$(starship init zsh)"
