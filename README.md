@@ -43,7 +43,8 @@ for multiple terminal sessions with multiple panes & windows
 - [~alacritty~](https://github.com/alacritty/alacritty)
 - [~kitty~](https://github.com/kovidgoyal/kitty)
 - [~Warp~](https://github.com/warpdotdev/Warp)
-- [iTerm2](https://github.com/gnachman/iTerm2)
+- [~iTerm2~](https://github.com/gnachman/iTerm2)
+- [Ghostty](https://github.com/ghostty-org/ghostty)
 
 ## Dev Tools
 
